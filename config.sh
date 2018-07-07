@@ -20,7 +20,8 @@ sudo sed -i '42 s/.*/static ip_address='${ip}'\/24/' ${dhcpcd_file}
 sudo sed -i '44 s/.*/static routers='${router}'/' ${dhcpcd_file}
 sudo sed -i '45 s/.*/static domain_name_servers='${server}'/' ${dhcpcd_file}
 
-#echo "- ahora la ip es estatica: "${ip}
+echo "- ahora la ip es estatica: "${ip}
+
 # reinicia el servicio de red
 sudo systemctl restart networking
 sudo ifdown -a
@@ -34,8 +35,10 @@ echo "- se ha instalado winbind y samba"
 
 # modifica nsswitch para completar el acceso desde windows
 nsswitch=/etc/nsswitch.conf
+
 # comenta la linea del hosts
 sudo sed -i '12 s/^/#/' ${nsswitch}
+
 # inserta una nueva linea
 sudo sed -i '13i hosts: files wins dns' ${nsswitch}
 echo "- actualizado " ${nsswitch}
@@ -43,8 +46,8 @@ echo "- actualizado " ${nsswitch}
 # modifica el fichero hosts
 host_path=/etc/hosts
 nuevo_hostname="raspberry-angel"
-#sudo sed -i '6 s/^/#/' ${host_path}
-#sudo sed -i "6i 127.0.0.1\t $nuevo_hostname" ${host_path}
+sudo sed -i '6 s/^/#/' ${host_path}
+sudo sed -i "6i 127.0.0.1\t $nuevo_hostname" ${host_path}
 echo "- actualizado " ${host_path}
 
 # modifica el hostname sin reiniciar
