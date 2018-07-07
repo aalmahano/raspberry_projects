@@ -28,16 +28,16 @@ sudo ifup -a
 echo "- red reiniciada"
 
 # instala las aplicaciones necesarias para poder acceder desde windows al host
-#sudo apt-get update -y
-#sudo apt-get install winbind samba -y
-#echo "- se ha instalado winbind y samba"
+sudo apt-get update -y
+sudo apt-get install winbind samba -y
+echo "- se ha instalado winbind y samba"
 
 # modifica nsswitch para completar el acceso desde windows
 nsswitch=/etc/nsswitch.conf
 # comenta la linea del hosts
-#sudo sed -i '12 s/^/#/' ${nsswitch}
+sudo sed -i '12 s/^/#/' ${nsswitch}
 # inserta una nueva linea
-#sudo sed -i '13i hosts: files wins dns' ${nsswitch}
+sudo sed -i '13i hosts: files wins dns' ${nsswitch}
 echo "- actualizado " ${nsswitch}
 
 # modifica el fichero hosts
@@ -48,11 +48,12 @@ nuevo_hostname="raspberry-angel"
 echo "- actualizado " ${host_path}
 
 # modifica el hostname sin reiniciar
-#sudo hostnamectl set-hostname ${nuevo_hostname}
+sudo hostnamectl set-hostname ${nuevo_hostname}
 echo '- ahora ya se puede acceder desde windows con el hostname: '${nuevo_hostname}
 
 # modifica el puerto ssh
-#ssh_path=/etc/ssh/sshd_config
+ssh_path=/etc/ssh/sshd_config
 ssh_port=2222
-#sudo sed -i "13i Port $ssh_port" ${ssh_path}
+sudo sed -i "13i Port $ssh_port" ${ssh_path}
 echo "- puerto ssh modificado a " ${ssh_port}
+sudo systemctl restart ssh
