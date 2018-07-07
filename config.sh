@@ -22,10 +22,10 @@ sudo sed -i '45 s/.*/static domain_name_servers='${server}'/' ${dhcpcd_file}
 
 #echo "- ahora la ip es estatica: "${ip}
 # reinicia el servicio de red
-#sudo systemctl restart networking
-#sudo ifdown -a
-#sudo ifup -a
-#echo "- red reiniciada"
+sudo systemctl restart networking
+sudo ifdown -a
+sudo ifup -a
+echo "- red reiniciada"
 
 # instala las aplicaciones necesarias para poder acceder desde windows al host
 #sudo apt-get update -y
