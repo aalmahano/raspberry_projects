@@ -59,4 +59,5 @@ ssh_path=/etc/ssh/sshd_config
 ssh_port=2222
 sudo sed -i "13i Port $ssh_port" ${ssh_path}
 echo "- puerto ssh modificado a " ${ssh_port}
+sudo systemctl enable ssh
 sudo systemctl restart ssh
